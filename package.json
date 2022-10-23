@@ -1,0 +1,10 @@
+{
+
+    "devDependencies": {
+
+        "cypress": "^10.10.0"
+
+    }
+
+}
+
