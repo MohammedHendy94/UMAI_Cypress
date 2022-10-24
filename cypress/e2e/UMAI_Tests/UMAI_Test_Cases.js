@@ -17,7 +17,8 @@ describe('UMAI', ()=> {
           cy.get('#ums-browse-more-button').should('contain','Make another reservation') 
 
     })
-    it.only('Validate user cant enter invalid data or leave fields empty', ()=> {
+
+    it('Validate user cant enter invalid data or leave fields empty', ()=> {
         cy.visit('/')
           cy.get('#timeslot-football-time-0').click()
           cy.contains('Sky Bar').click()
@@ -31,16 +32,34 @@ describe('UMAI', ()=> {
           .parent('div')
           .find('.um-form-error')
           .should('contain','Phone number is required')
-
           cy.contains('Please enter a valid email address').should('contain','Please enter a valid email address')
-
-
           cy.get('#um-field--first-name').parent('div').find('.um-form-error').should('contain', 'First name is required')
-       
-      
 
     })
-    
+
+    it('Validatios on the call us button', ()=> {
+        cy.visit('/')
+       // cy.get('#um-reservation-date-picker').click()
+      cy.contains('button', 'Call us here').then(colus => {
+        const tex = colus.text()
+        cy.wrap(colus).click()
+        expect(tex).to.equal('Call us here')
+      })
+      cy.get('#um-private-events').invoke('text').then(text => {
+        expect(text).to.equal('Call us here')
+      })    
+
+    })
+
+    it.only('Validate that policy checkbox is unchecked by default', ()=> {
+
+        cy.visit('/')
+          cy.get('#timeslot----0').click()
+          cy.contains('Sky Bar').click()
+         // cy.get('#um-field-checkbox').click()
+          cy.contains('button', 'Confirm Reservation Details').invoke('attr','disabled').should('exist')
+
+    })
     
     
     
